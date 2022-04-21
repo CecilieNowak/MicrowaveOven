@@ -30,6 +30,7 @@ namespace Microwave.Test.Unit
         public void BuzzerTurnOff_WasOn_CorrectOutput()
         {
             uut.TurnOn();
+            uut.TurnOff();
             output.Received().OutputLine(Arg.Is<string>(str => str.Contains("off")));
         }
 
