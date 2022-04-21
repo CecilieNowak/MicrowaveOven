@@ -21,9 +21,9 @@ namespace Microwave.Classes.Boundary
 
         }
 
-        //public void TurnOff()
-        //{
-
-        //}
+        public void TurnOff()
+        {
+            myOutput.OutputLine("off");
+        }
     }
 }
