@@ -9,4 +9,8 @@ namespace Microwave.Classes.Interfaces
         void TurnOn();
         void TurnOff();
     }
+
+
+
+
 }
