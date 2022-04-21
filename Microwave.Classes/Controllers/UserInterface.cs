@@ -47,7 +47,7 @@ namespace Microwave.Classes.Controllers
             myLight = light;
             myDisplay = display;
             myBuzzer = buzzer;
-            _maxPower = maxPower;
+            MaxPower = maxPower;
         }
 
         private void ResetValues()
