@@ -6,6 +6,7 @@ namespace Microwave.App
 {
     class Program
     {
+       
         static void Main(string[] args)
         {
             Button startCancelButton = new Button();
@@ -18,7 +19,9 @@ namespace Microwave.App
 
             Display display = new Display(output);
 
-            PowerTube powerTube = new PowerTube(output);
+            int configMaxPower = 500;
+
+            PowerTube powerTube = new PowerTube(output, configMaxPower);
 
             Light light = new Light(output);
 
