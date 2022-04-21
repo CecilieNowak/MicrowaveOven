@@ -336,7 +336,36 @@ namespace Microwave.Test.Unit
 
             light.Received(1).TurnOff();
         }
+        [Test]
+        public void Cooking_CookingIsDone_BuzzerOn()
+        {
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetPower
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetTime
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in cooking
 
+            uut.CookingIsDone();
+            buzzer.TurnOn();
+        }
+
+        [Test]
+        public void Cooking_CancelButton_CookerCalled_BuzzerOff()
+        {
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetPower
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetTime
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in cooking
+
+            // Open door
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            cooker.Received(1).Stop();
+            buzzer.TurnOff();
+        }
 
     }
 

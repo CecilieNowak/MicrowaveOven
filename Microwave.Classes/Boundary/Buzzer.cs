@@ -7,23 +7,23 @@ namespace Microwave.Classes.Boundary
 {
     public class Buzzer : IBuzzer
     {
-        private IOutput myOutput;
+        private IOutput Output;
         
 
         public Buzzer(IOutput output)
         {
-            myOutput = output;
+            Output = output;
         }
         public void TurnOn()
         {
 
-            myOutput.OutputLine("Bib bib bib");
+            Output.OutputLine("Bib bib bib");
 
         }
 
-        //public void TurnOff()
-        //{
-
-        //}
+        public void TurnOff()
+        {
+            Output.OutputLine("off");
+        }
     }
 }
