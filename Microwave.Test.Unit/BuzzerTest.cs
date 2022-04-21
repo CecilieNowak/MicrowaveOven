@@ -19,12 +19,12 @@ namespace Microwave.Test.Unit
             uut = new Buzzer(output);
         }
 
-        [Test]
-        public void TurnOn_WasOff_CorrectOutput()
-        {
-            uut.TurnOn();
-            output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("on")));
-        }
+        //[Test]
+        //public void TurnOn_WasOff_CorrectOutput()
+        //{
+        //    uut.TurnOn();
+        //    output.Received().OutputLine(Arg.Is<string>(str => str.Contains("on")));
+        //}
 
         [Test]
         public void BuzzerTurnOn_WasOff_CorrectOutput()
