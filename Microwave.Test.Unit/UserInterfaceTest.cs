@@ -24,6 +24,8 @@ namespace Microwave.Test.Unit
         private ICookController cooker;
         private IBuzzer buzzer;
 
+        private IConfiguration configuration;
+
         [SetUp]
         public void Setup()
         {

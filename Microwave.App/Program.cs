@@ -21,9 +21,9 @@ namespace Microwave.App
 
             Display display = new Display(output);
 
-            int configMaxPower = 500;
+            Configuration configuration = new Configuration(700);
 
-            PowerTube powerTube = new PowerTube(output, configMaxPower);
+            PowerTube powerTube = new PowerTube(output, configuration);
 
             Light light = new Light(output);
 
