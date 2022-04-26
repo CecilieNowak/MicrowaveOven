@@ -29,7 +29,7 @@ namespace Microwave.Classes.Controllers
             IDisplay display,
             ILight light,
             ICookController cooker,
-                int maxPower)
+                IConfiguration configuration)
         {
             powerButton.Pressed += new EventHandler(OnPowerPressed);
             timeButton.Pressed += new EventHandler(OnTimePressed);
@@ -41,7 +41,7 @@ namespace Microwave.Classes.Controllers
             myCooker = cooker;
             myLight = light;
             myDisplay = display;
-            _maxPower = maxPower;
+            _maxPower = configuration.MaxPower;
         }
 
         private void ResetValues()
