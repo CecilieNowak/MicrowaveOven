@@ -11,6 +11,7 @@ namespace Microwave.Test.Unit
     {
         private PowerTube uut;
         private IOutput output;
+        private IConfiguration configuration;
 
         [SetUp]
         public void Setup()
