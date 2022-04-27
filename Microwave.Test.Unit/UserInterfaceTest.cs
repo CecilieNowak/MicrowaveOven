@@ -22,6 +22,7 @@ namespace Microwave.Test.Unit
         private ILight light;
 
         private ICookController cooker;
+        private IBuzzer buzzer;
 
       
 
@@ -35,13 +36,15 @@ namespace Microwave.Test.Unit
             light = Substitute.For<ILight>();
             display = Substitute.For<IDisplay>();
             cooker = Substitute.For<ICookController>();
-           
+            buzzer = Substitute.For<IBuzzer>();
+
+
             uut = new UserInterface(
                 powerButton, timeButton, startCancelButton,
                 door,
                 display,
                 light,
-                cooker, 700);
+                cooker,buzzer, 700);
         }
 
         
@@ -390,8 +393,49 @@ namespace Microwave.Test.Unit
 
             light.Received(1).TurnOff();
         }
+        [Test]
+        public void Cooking_CookingIsDone_BuzzerOn()
+        {
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetPower
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetTime
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in cooking
 
+            uut.CookingIsDone();
+            buzzer.Received(1).TurnOn();
+        }
 
+        [Test]
+        public void Cooking_CancelButton_CookerCalled_BuzzerOff()
+        {
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetPower
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetTime
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in cooking
+
+            // Open door
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            buzzer.Received(0).TurnOn();
+            
+        } 
+        [Test]
+        public void SetTime_StartButton_BuzzerIsNotCalled()
+        {
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetPower
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetTime
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now cooking
+
+            buzzer.Received(0).TurnOn();
+        }
+        
     }
 
 }
