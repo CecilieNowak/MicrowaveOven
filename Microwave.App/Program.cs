@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 
@@ -9,6 +10,7 @@ namespace Microwave.App
        
         static void Main(string[] args)
         {
+            int config = 700;
             Button startCancelButton = new Button();
             Button powerButton = new Button();
             Button timeButton = new Button();
@@ -19,9 +21,7 @@ namespace Microwave.App
 
             Display display = new Display(output);
 
-            Configuration configuration = new Configuration(700);
-
-            PowerTube powerTube = new PowerTube(output, configuration);
+            PowerTube powerTube = new PowerTube(output, config);
 
             Light light = new Light(output);
 
@@ -29,7 +29,7 @@ namespace Microwave.App
 
             CookController cooker = new CookController(timer, display, powerTube);
 
-            UserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker, configuration);
+            UserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker, config);
 
             // Finish the double association
             cooker.UI = ui;
