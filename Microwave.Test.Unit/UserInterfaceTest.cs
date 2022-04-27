@@ -40,7 +40,7 @@ namespace Microwave.Test.Unit
                 door,
                 display,
                 light,
-                cooker,buzzer);
+                cooker, buzzer);
         }
 
         [Test]
@@ -364,8 +364,8 @@ namespace Microwave.Test.Unit
             startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
 
             buzzer.Received(0).TurnOn();
-            
-        } 
+
+        }
         [Test]
         public void SetTime_StartButton_BuzzerIsNotCalled()
         {
@@ -378,7 +378,7 @@ namespace Microwave.Test.Unit
 
             buzzer.Received(0).TurnOn();
         }
-        
+
     }
 
 }
