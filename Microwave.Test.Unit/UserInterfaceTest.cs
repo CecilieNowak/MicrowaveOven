@@ -1,4 +1,5 @@
 ﻿using System;
+using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
@@ -23,6 +24,8 @@ namespace Microwave.Test.Unit
         private ICookController cooker;
         private IBuzzer buzzer;
 
+      
+
         [SetUp]
         public void Setup()
         {
@@ -35,14 +38,16 @@ namespace Microwave.Test.Unit
             cooker = Substitute.For<ICookController>();
             buzzer = Substitute.For<IBuzzer>();
 
+
             uut = new UserInterface(
                 powerButton, timeButton, startCancelButton,
                 door,
                 display,
                 light,
-                cooker,buzzer);
+                cooker,buzzer, 700);
         }
 
+        
         [Test]
         public void Ready_DoorOpen_LightOn()
         {
@@ -100,6 +105,58 @@ namespace Microwave.Test.Unit
                 powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             }
             // And then once more
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            display.Received(2).ShowPower(50);
+        }
+
+        [Test] //tilføjet
+        public void StateReady_MaxPowerIs800_15PowerButton_PowerIs750()
+        {
+            uut.MaxPower = 800;
+
+            for (int i = 1; i <= 15; i++)
+            {
+                powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            }
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            display.Received(1).ShowPower(Arg.Is<int>(750));
+        }
+
+        [Test] //tilføjet
+        public void StateReady_MaxPowerIs800_16PowerButton_PowerIs50Again()
+        {
+            uut.MaxPower = 800;
+
+            for (int i = 1; i <= 16; i++)
+            {
+                powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            }
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            display.Received(2).ShowPower(50);
+        }
+
+        [Test] //tilføjet
+        public void StateReady_MaxPowerIs500_10PowerButton_PowerIs500()
+        {
+            uut.MaxPower = 500;
+
+            for (int i = 1; i <= 10; i++)
+            {
+                powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            }
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            display.Received(1).ShowPower(Arg.Is<int>(500));
+        }
+
+        [Test] //tilføjet
+        public void StateReady_MaxPowerIs500_11PowerButton_PowerIs50Again()
+        {
+            uut.MaxPower = 500;
+
+            for (int i = 1; i <= 11; i++)
+            {
+                powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            }
             powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             display.Received(2).ShowPower(50);
         }
