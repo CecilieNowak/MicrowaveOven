@@ -148,7 +148,7 @@ namespace Microwave.Test.Unit
             Assert.That(uut.TimeRemaining, Is.EqualTo(5 - ticks * 1));
         }
 
-        //Soruba
+        
 
         [TestCase(1)]
         [TestCase(2)]
@@ -192,11 +192,10 @@ namespace Microwave.Test.Unit
                     pause.Set();
             };
 
-            uut.ChangeTime = 10; 
-            //Der skal trækkes 10 fra den restende tid
+            uut.ChangeTime = 10;
 
             uut.Start(50);  
-            //Ovnen starter på 50 sek.
+            
             uut.DecreaseRemainingTime();
 
             // wait for ticks, only a little longer

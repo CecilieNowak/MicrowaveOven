@@ -340,7 +340,7 @@ namespace Microwave.Test.Unit
             light.Received(1).TurnOff();
         }
 
-        //Soruba
+
         [Test]
         public void SetTime_Cooking_TimeButtonIncreaseTime()
         {

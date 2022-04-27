@@ -75,7 +75,6 @@ namespace Microwave.Classes.Controllers
                 case States.SETTIME:
                     time += 1;
                     myDisplay.ShowTime(time, 0);
-                    //myState = States.COOKING; //todo Skal det være der?
                     break;
                 case States.COOKING:
                     myCooker.IncreaseTime();
@@ -88,15 +87,14 @@ namespace Microwave.Classes.Controllers
         {
             switch (myState)
             {
-                case States.SETPOWER:
-                    myDisplay.ShowTime(time, 0);
-                    myState = States.SETTIME;
-                    break;
-                case States.SETTIME:
-                    time -= 1;
-                    myDisplay.ShowTime(time, 0);
-                    //myState = States.COOKING; //todo Skal det være der?
-                    break;
+                //case States.SETPOWER:
+                //    myDisplay.ShowTime(time, 0);
+                //    myState = States.SETTIME;
+                //    break;
+                //case States.SETTIME:
+                //    time -= 1;
+                //    myDisplay.ShowTime(time, 0);
+                //    break;
                 case States.COOKING:
                     myCooker.DecreaseTime();
                     break;
@@ -186,14 +184,14 @@ namespace Microwave.Classes.Controllers
             switch (myState)
             {
                 case States.COOKING:
-                    myDisplay.ShowTime(0,0); //Todo Hvad vises der, hvis tid er under 0=
+                    myDisplay.ShowTime(0,0); 
                     ResetValues();
                     myCooker.Stop();
                     myLight.TurnOff();
                     myDisplay.Clear();
-                    myState = States.READY; //er det rigtigt?
+                    myState = States.READY; 
                     break;
-                //todo skal alt dette ske? Eller er det nok bare at kalde Stop()?
+
             }
         }
     }

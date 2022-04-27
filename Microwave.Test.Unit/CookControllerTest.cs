@@ -83,8 +83,7 @@ namespace Microwave.Test.Unit
 
             powerTube.Received().TurnOff();
         }
-
-        //Soruba
+        //---
 
         [Test]
         public void CookController_IncreaseTime_TimerIsCalled()
