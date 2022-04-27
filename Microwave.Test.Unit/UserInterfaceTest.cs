@@ -111,31 +111,8 @@ namespace Microwave.Test.Unit
             display.Received(2).ShowPower(50);
         }
 
-        [Test] //tilføjet
-        public void StateReady_MaxPowerIs800_15PowerButton_PowerIs750()
-        {
-            uut.MaxPower = 800;
-
-            for (int i = 1; i <= 15; i++)
-            {
-                powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-            }
-            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-            display.Received(1).ShowPower(Arg.Is<int>(750));
-        }
-
-        [Test] //tilføjet
-        public void StateReady_MaxPowerIs800_16PowerButton_PowerIs50Again()
-        {
-            uut.MaxPower = 800;
-
-            for (int i = 1; i <= 16; i++)
-            {
-                powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-            }
-            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-            display.Received(2).ShowPower(50);
-        }
+     
+       
 
         [Test] //tilføjet
         public void StateReady_MaxPowerIs800_15PowerButton_PowerIs750()
