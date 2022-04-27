@@ -42,7 +42,7 @@ namespace Microwave.Test.Unit
                 door,
                 display,
                 light,
-                cooker,buzzer);
+                cooker, buzzer);
         }
 
         [Test]
