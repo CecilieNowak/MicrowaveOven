@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 
