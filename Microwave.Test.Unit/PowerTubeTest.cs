@@ -32,6 +32,24 @@ namespace Microwave.Test.Unit
             output.Received().OutputLine(Arg.Is<string>(str => str.Contains($"{power}")));
         }
 
+        [TestCase(1)]
+        [TestCase(50)]
+        [TestCase(100)]
+        [TestCase(500)]
+        [TestCase(700)]
+        [TestCase(800)]
+        [TestCase(899)]
+        public void TurnOnMaxPowerIs900_WasOffCorrectPower_CorrectOutput(int power)
+        {
+            uut.MaxPower = 900;
+
+            uut.TurnOn(power);
+
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains($"{power}")));
+        }
+
+
+
         [TestCase(-5)]
         [TestCase(-1)]
         [TestCase(0)]
@@ -42,6 +60,17 @@ namespace Microwave.Test.Unit
             Assert.Throws<System.ArgumentOutOfRangeException>(() => uut.TurnOn(power));
         }
 
+        [TestCase(-5)]
+        [TestCase(-1)]
+        [TestCase(0)]
+        [TestCase(901)]
+        [TestCase(950)]
+        public void TurnOnMaxPowerIs900_WasOffOutOfRangePower_ThrowsException(int power)
+        {
+            uut.MaxPower = 900;
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => uut.TurnOn(power));
+        }
+
         [Test]
         public void TurnOff_WasOn_CorrectOutput()
         {
@@ -49,6 +78,7 @@ namespace Microwave.Test.Unit
             uut.TurnOff();
             output.Received().OutputLine(Arg.Is<string>(str => str.Contains("off")));
         }
+
 
         [Test]
         public void TurnOff_WasOff_NoOutput()
