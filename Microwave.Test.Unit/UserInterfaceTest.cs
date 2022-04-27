@@ -38,6 +38,7 @@ namespace Microwave.Test.Unit
             cooker = Substitute.For<ICookController>();
             buzzer = Substitute.For<IBuzzer>();
 
+
             uut = new UserInterface(
                 powerButton, timeButton, startCancelButton,
                 door,
