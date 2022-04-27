@@ -352,7 +352,7 @@ namespace Microwave.Test.Unit
             // Now in cooking
 
             uut.CookingIsDone();
-            buzzer.TurnOn();
+            buzzer.Received(1).TurnOn();
         }
 
         [Test]
@@ -365,6 +365,7 @@ namespace Microwave.Test.Unit
             startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             // Now in cooking
 
+
             // Open door
             startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
 
@@ -372,45 +373,50 @@ namespace Microwave.Test.Unit
             buzzer.TurnOff();
         }
 
-
-
         [Test]
         public void SetTime_Cooking_TimeButtonIncreaseTime()
         {
-            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
-            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
-            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
 
-            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
 
-            cooker.Received(1).IncreaseTime(); 
+            cooker.Received(1).IncreaseTime();
         }
 
         [Test]
         public void SetTime_Cooking_TimeDetractedButtonDectractTime()
         {
-            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
-            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
-            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
-            
-            timeDetractButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            timeDetractButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
 
             cooker.Received(1).DecreaseTime();
         }
-
-        [Test]
-        public void Cooking_TimeIsSetToZero_CookingStops()
-        {
-            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
-            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
-            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
-
-            uut.TimeIsChangedToZero();
-            display.Received(1).ShowTime(0,0);
-            cooker.Received(1).Stop();
-            light.Received(1).TurnOff();
-            display.Received(1).Clear();
+        cooker.Received(1).Stop();
+            buzzer.TurnOff();
         }
+
+
+
+}
+[Test]
+public void Cooking_TimeIsSetToZero_CookingStops()
+{
+    powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+    timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+    startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+    uut.TimeIsChangedToZero();
+    display.Received(1).ShowTime(0, 0);
+    cooker.Received(1).Stop();
+    light.Received(1).TurnOff();
+    display.Received(1).Clear();
+}
     }
 
+}
 }
