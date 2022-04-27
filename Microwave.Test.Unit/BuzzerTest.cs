@@ -19,12 +19,6 @@ namespace Microwave.Test.Unit
             uut = new Buzzer(output);
         }
 
-        [Test]
-        public void TurnOn_WasOff_CorrectOutput()
-        {
-            uut.TurnOn();
-            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("Bib bib bib")));
-        }
 
         [Test]
         public void BuzzerTurnOn_WasOff_CorrectOutput()
