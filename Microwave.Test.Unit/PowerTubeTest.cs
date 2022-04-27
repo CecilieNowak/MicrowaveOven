@@ -11,15 +11,13 @@ namespace Microwave.Test.Unit
     {
         private PowerTube uut;
         private IOutput output;
-        private IConfiguration configuration;
 
         [SetUp]
         public void Setup()
         {
             output = Substitute.For<IOutput>();
-            configuration = Substitute.For<IConfiguration>();
-            configuration.MaxPower = 700;
-            uut = new PowerTube(output, configuration);
+           
+            uut = new PowerTube(output, 700);
         }
 
         [TestCase(1)]

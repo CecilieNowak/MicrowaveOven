@@ -19,8 +19,9 @@ namespace Microwave.Classes.Controllers
         private readonly IBuzzer myBuzzer;
 
         private int powerLevel = 50;
-        private int _maxPower;
+        public int MaxPower { get; set; }
         private int time = 1;
+
 
         public UserInterface(
             IButton powerButton,
@@ -64,7 +65,7 @@ namespace Microwave.Classes.Controllers
                     myState = States.SETPOWER;
                     break;
                 case States.SETPOWER:
-                    powerLevel = (powerLevel >= _maxPower ? 50 : powerLevel+50);
+                    powerLevel = (powerLevel >= MaxPower ? 50 : powerLevel+50);
                     myDisplay.ShowPower(powerLevel);
                     break;
             }
