@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 
@@ -11,6 +12,7 @@ namespace Microwave.App
             Button startCancelButton = new Button();
             Button powerButton = new Button();
             Button timeButton = new Button();
+            Button timeDetractButton = new Button(); //Todo
 
             Door door = new Door();
 
@@ -26,7 +28,7 @@ namespace Microwave.App
 
             CookController cooker = new CookController(timer, display, powerTube);
 
-            UserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
+            UserInterface ui = new UserInterface(powerButton, timeButton, timeDetractButton, startCancelButton, door, display, light, cooker);
 
             // Finish the double association
             cooker.UI = ui;
@@ -44,7 +46,25 @@ namespace Microwave.App
             System.Console.WriteLine("When you press enter, the program will stop");
             // Wait for input
 
-            System.Console.ReadLine();
+            //System.Console.ReadLine();
+
+            //Følgende er til test af Time Knapper:
+            var cont = true;
+            while (cont)
+            {
+                var key = Console.ReadKey(true);
+                switch (key.KeyChar)
+                {
+                    case 'A':
+                    case 'a':
+                        ui.OnTimePressed(timeButton, EventArgs.Empty);
+                        break;
+                    case 'B':
+                    case 'b':
+                        ui.OnTimeDetractPressed(timeDetractButton, EventArgs.Empty);
+                        break;
+                }
+            }
         }
     }
 }

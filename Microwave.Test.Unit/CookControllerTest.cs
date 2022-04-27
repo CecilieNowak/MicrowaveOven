@@ -2,6 +2,7 @@
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
+using NuGet.Frameworks;
 using NUnit.Framework;
 
 namespace Microwave.Test.Unit
@@ -83,5 +84,49 @@ namespace Microwave.Test.Unit
             powerTube.Received().TurnOff();
         }
 
+        //Soruba
+
+        [Test]
+        public void CookController_IncreaseTime_TimerIsCalled()
+        {
+            uut.IncreaseTime();
+
+            timer.Received(1).IncreaseRemainingTime();
+        }
+
+        [Test]
+        public void CookController_DecreaseTime_TimerIsCalled()
+        {
+            uut.DecreaseTime(); 
+            
+            timer.Received(1).DecreaseRemainingTime();
+        }
+
+        [Test]
+        public void CookController_ChangeTimeToZero_UIIsCalled()
+        { 
+            timer.TimeRemaining.Returns(0);
+            
+            uut.DecreaseTime();    
+
+            timer.Received(1).DecreaseRemainingTime();
+            ui.Received(1).TimeIsChangedToZero();
+        }
+
+        [Test]
+        public void CookController_ChangeTimeToNegative1_UIIsCalled()
+        {
+            timer.TimeRemaining.Returns(-1);
+            uut.DecreaseTime();
+            ui.Received(1).TimeIsChangedToZero();
+        }
+
+        [Test]
+        public void CookController_ChangeTimeToOne_UIIsNotCalled()
+        {
+            timer.TimeRemaining.Returns(1);
+            uut.DecreaseTime();
+            ui.Received(0).TimeIsChangedToZero();
+        }
     }
 }

@@ -83,7 +83,7 @@ namespace Microwave.Test.Unit
         [Test]
         public void Stop_NotStarted_NoThrow()
         {
-            Assert.That( () => uut.Stop(), Throws.Nothing);
+            Assert.That(() => uut.Stop(), Throws.Nothing);
         }
 
         [Test]
@@ -145,7 +145,64 @@ namespace Microwave.Test.Unit
             // wait for ticks, only a little longer
             pause.WaitOne(ticks * 1000 + 100);
 
-            Assert.That(uut.TimeRemaining, Is.EqualTo(5-ticks*1));
+            Assert.That(uut.TimeRemaining, Is.EqualTo(5 - ticks * 1));
+        }
+
+        //Soruba
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        public void Tick_Started_IncreaseRemainingTime_TimeRemainingIsChangedCorrect(int ticks)
+        {
+            ManualResetEvent pause = new ManualResetEvent(false);
+            int ticksGone = 0;
+            uut.TimerTick += (sender, args) =>
+            {
+                ticksGone++;
+                if (ticksGone >= ticks)
+                    pause.Set();
+            };
+
+            uut.ChangeTime = 10;
+
+            uut.Start(50);
+            uut.IncreaseRemainingTime();
+
+            // wait for ticks, only a little longer
+            pause.WaitOne(ticks * 1000 + 100);
+
+            Assert.That(uut.TimeRemaining, Is.EqualTo(60 - ticks * 1));
+        }
+
+        //Todo
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        public void Tick_Started_DetractRemainingTime_TimeRemainingIsChangedCorrect(int ticks)
+        {
+            ManualResetEvent pause = new ManualResetEvent(false);
+            int ticksGone = 0;
+            uut.TimerTick += (sender, args) =>
+            {
+                ticksGone++;
+                if (ticksGone >= ticks)
+                    pause.Set();
+            };
+
+            uut.ChangeTime = 10; 
+            //Der skal trækkes 10 fra den restende tid
+
+            uut.Start(50);  
+            //Ovnen starter på 50 sek.
+            uut.DecreaseRemainingTime();
+
+            // wait for ticks, only a little longer
+            pause.WaitOne(ticks * 1000 + 100);
+
+            Assert.That(uut.TimeRemaining, Is.EqualTo(40 - ticks * 1));
         }
     }
 }

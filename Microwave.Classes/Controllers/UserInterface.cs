@@ -23,6 +23,7 @@ namespace Microwave.Classes.Controllers
         public UserInterface(
             IButton powerButton,
             IButton timeButton,
+            IButton timeDetractButton, //todo
             IButton startCancelButton,
             IDoor door,
             IDisplay display,
@@ -30,7 +31,8 @@ namespace Microwave.Classes.Controllers
             ICookController cooker)
         {
             powerButton.Pressed += new EventHandler(OnPowerPressed);
-            timeButton.Pressed += new EventHandler(OnTimePressed);
+            timeButton.Pressed += new EventHandler(OnTimePressed); //OnTimePressed() er knyttet til Pressed eventhandleren
+            timeDetractButton.Pressed += new EventHandler(OnTimeDetractPressed); //Todo
             startCancelButton.Pressed += new EventHandler(OnStartCancelPressed);
 
             door.Closed += new EventHandler(OnDoorClosed);
@@ -73,6 +75,30 @@ namespace Microwave.Classes.Controllers
                 case States.SETTIME:
                     time += 1;
                     myDisplay.ShowTime(time, 0);
+                    //myState = States.COOKING; //todo Skal det være der?
+                    break;
+                case States.COOKING:
+                    myCooker.IncreaseTime();
+                    break;
+            }
+        }
+
+        //Soruba
+        public void OnTimeDetractPressed(object sender, EventArgs e)
+        {
+            switch (myState)
+            {
+                case States.SETPOWER:
+                    myDisplay.ShowTime(time, 0);
+                    myState = States.SETTIME;
+                    break;
+                case States.SETTIME:
+                    time -= 1;
+                    myDisplay.ShowTime(time, 0);
+                    //myState = States.COOKING; //todo Skal det være der?
+                    break;
+                case States.COOKING:
+                    myCooker.DecreaseTime();
                     break;
             }
         }
@@ -92,7 +118,7 @@ namespace Microwave.Classes.Controllers
                     myState = States.COOKING;
                     break;
                 case States.COOKING:
-                    ResetValues();
+                    ResetValues();        
                     myCooker.Stop();
                     myLight.TurnOff();
                     myDisplay.Clear();
@@ -152,6 +178,22 @@ namespace Microwave.Classes.Controllers
                     // Beep 3 times
                     myState = States.READY;
                     break;
+            }
+        }
+
+        public void TimeIsChangedToZero()
+        {
+            switch (myState)
+            {
+                case States.COOKING:
+                    myDisplay.ShowTime(0,0); //Todo Hvad vises der, hvis tid er under 0=
+                    ResetValues();
+                    myCooker.Stop();
+                    myLight.TurnOff();
+                    myDisplay.Clear();
+                    myState = States.READY; //er det rigtigt?
+                    break;
+                //todo skal alt dette ske? Eller er det nok bare at kalde Stop()?
             }
         }
     }

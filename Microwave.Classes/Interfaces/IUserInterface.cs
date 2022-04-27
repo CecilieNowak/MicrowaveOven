@@ -16,5 +16,6 @@ namespace Microwave.Classes.Interfaces
         void OnDoorClosed(object sender, EventArgs e);
 
         void CookingIsDone();
+        void TimeIsChangedToZero();
     }
 }
