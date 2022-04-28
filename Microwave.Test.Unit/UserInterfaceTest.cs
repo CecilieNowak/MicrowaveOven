@@ -25,7 +25,7 @@ namespace Microwave.Test.Unit
         private ICookController cooker;
         private IBuzzer buzzer;
 
-      
+
 
         [SetUp]
         public void Setup()
@@ -46,10 +46,10 @@ namespace Microwave.Test.Unit
                 display,
                 light,
                 cooker
-                ,buzzer,700);
+                , buzzer, 700);
         }
 
-        
+
         [Test]
         public void Ready_DoorOpen_LightOn()
         {
@@ -111,8 +111,8 @@ namespace Microwave.Test.Unit
             display.Received(2).ShowPower(50);
         }
 
-     
-       
+
+
 
         [Test] //tilføjet
         public void StateReady_MaxPowerIs800_15PowerButton_PowerIs750()
@@ -414,6 +414,22 @@ namespace Microwave.Test.Unit
             uut.CookingIsDone();
             buzzer.Received(1).TurnOn();
         }
+        [Test]
+        public void Cooking_DoorIsOpened_CookerCalled_BuzzerNotCalled()
+        {
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetPower
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetTime
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in cooking
+
+            // Open door
+            door.Opened += Raise.EventWith(this, EventArgs.Empty);
+
+            buzzer.Received(0).TurnOn();
+            cooker.Received(1).Stop();
+        }
 
         [Test]
         public void Cooking_CancelButton_CookerCalled_BuzzerOff()
@@ -430,7 +446,7 @@ namespace Microwave.Test.Unit
             startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
 
             cooker.Received(1).Stop();
-            buzzer.TurnOff();
+            buzzer.Received(0).TurnOn();
         }
 
         [Test]
@@ -456,27 +472,38 @@ namespace Microwave.Test.Unit
 
             cooker.Received(1).DecreaseTime();
         }
-        cooker.Received(1).Stop();
-            buzzer.TurnOff();
+
+
+
+
+
+        [Test]
+        public void Cooking_TimeIsSetToZero_CookingStops()
+        {
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            uut.TimeIsChangedToZero();
+            display.Received(1).ShowTime(0, 0);
+            cooker.Received(1).Stop();
+            light.Received(1).TurnOff();
+            display.Received(1).Clear();
+            buzzer.Received(1).TurnOn();
+        }
+        [Test]
+        public void SetTime_StartButton_BuzzerIsNotCalled()
+        {
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetPower
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetTime
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now cooking
+
+            buzzer.Received(0).TurnOn();
         }
 
-
-
-}
-[Test]
-public void Cooking_TimeIsSetToZero_CookingStops()
-{
-    powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-    timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-    startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-
-    uut.TimeIsChangedToZero();
-    display.Received(1).ShowTime(0, 0);
-    cooker.Received(1).Stop();
-    light.Received(1).TurnOff();
-    display.Received(1).Clear();
-}
     }
+}
 
-}
-}

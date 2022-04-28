@@ -89,19 +89,12 @@ namespace Microwave.Classes.Controllers
             }
         }
 
-        //Soruba
+       
         public void OnTimeDetractPressed(object sender, EventArgs e)
         {
             switch (myState)
             {
-                //case States.SETPOWER:
-                //    myDisplay.ShowTime(time, 0);
-                //    myState = States.SETTIME;
-                //    break;
-                //case States.SETTIME:
-                //    time -= 1;
-                //    myDisplay.ShowTime(time, 0);
-                //    break;
+               
                 case States.COOKING:
                     myCooker.DecreaseTime();
                     break;
@@ -180,7 +173,7 @@ namespace Microwave.Classes.Controllers
                     ResetValues();
                     myDisplay.Clear();
                     myLight.TurnOff();
-                    myBuzzer.TurnOn(); // Beep 3 times
+                    myBuzzer.TurnOn(); 
                     myState = States.READY;
                     break;
             }
@@ -196,6 +189,7 @@ namespace Microwave.Classes.Controllers
                     myCooker.Stop();
                     myLight.TurnOff();
                     myDisplay.Clear();
+                    myBuzzer.TurnOn();
                     myState = States.READY; 
                     break;
 
