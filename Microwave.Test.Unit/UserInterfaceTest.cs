@@ -344,11 +344,11 @@ namespace Microwave.Test.Unit
         [Test]
         public void SetTime_Cooking_TimeButtonIncreaseTime()
         {
-            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty); //tænk ovn
-            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty); //sæt tid
-            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty); //cooking
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
 
-            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty); //tid øges med 30 sek
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
 
             cooker.Received(1).IncreaseTime(); 
         }
@@ -356,11 +356,11 @@ namespace Microwave.Test.Unit
         [Test]
         public void SetTime_Cooking_TimeDetractedButtonDectractTime()
         {
-            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty); //tænd ovn
-            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty); //sæt tid
-            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty); //cooking
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
             
-            timeDetractButton.Pressed += Raise.EventWith(this, EventArgs.Empty); //tid falder med 30 sek
+            timeDetractButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
 
             cooker.Received(1).DecreaseTime();
         }
@@ -368,9 +368,9 @@ namespace Microwave.Test.Unit
         [Test]
         public void Cooking_TimeIsSetToZero_CookingStops()
         {
-            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty); //tænd ovn
-            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty); //sæt tid
-            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty); //cooking
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty); 
 
             uut.TimeIsChangedToZero();
             display.Received(1).ShowTime(0,0);
