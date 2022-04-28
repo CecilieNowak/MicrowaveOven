@@ -40,6 +40,7 @@ namespace Microwave.Test.Unit
             cooker = Substitute.For<ICookController>();
             buzzer = Substitute.For<IBuzzer>();
 
+
             uut = new UserInterface(
                 powerButton, timeButton, timeDetractButton, startCancelButton,
                 door,
@@ -427,8 +428,33 @@ namespace Microwave.Test.Unit
             // Open door
             door.Opened += Raise.EventWith(this, EventArgs.Empty);
 
+        [Test]
+        public void Cooking_CancelButton_CookerCalled_BuzzerOff()
+        {
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetPower
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetTime
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in cooking
+
+            // Open door
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
             buzzer.Received(0).TurnOn();
-            cooker.Received(1).Stop();
+
+        }
+        [Test]
+        public void SetTime_StartButton_BuzzerIsNotCalled()
+        {
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetPower
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetTime
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now cooking
+
+            buzzer.Received(0).TurnOn();
         }
 
         [Test]
