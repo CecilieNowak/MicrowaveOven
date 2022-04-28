@@ -16,9 +16,12 @@ namespace Microwave.Classes.Controllers
         private ICookController myCooker;
         private ILight myLight;
         private IDisplay myDisplay;
+        private readonly IBuzzer myBuzzer;
 
         private int powerLevel = 50;
+        public int MaxPower { get; set; }
         private int time = 1;
+
 
         public UserInterface(
             IButton powerButton,
@@ -28,7 +31,9 @@ namespace Microwave.Classes.Controllers
             IDoor door,
             IDisplay display,
             ILight light,
-            ICookController cooker)
+            ICookController cooker,
+            IBuzzer buzzer,
+                int maxPower)
         {
             powerButton.Pressed += new EventHandler(OnPowerPressed);
             timeButton.Pressed += new EventHandler(OnTimePressed); //OnTimePressed() er knyttet til Pressed eventhandleren
@@ -41,6 +46,8 @@ namespace Microwave.Classes.Controllers
             myCooker = cooker;
             myLight = light;
             myDisplay = display;
+            myBuzzer = buzzer;
+            MaxPower = maxPower;
         }
 
         private void ResetValues()
@@ -58,7 +65,7 @@ namespace Microwave.Classes.Controllers
                     myState = States.SETPOWER;
                     break;
                 case States.SETPOWER:
-                    powerLevel = (powerLevel >= 700 ? 50 : powerLevel+50);
+                    powerLevel = (powerLevel >= MaxPower ? 50 : powerLevel+50);
                     myDisplay.ShowPower(powerLevel);
                     break;
             }
@@ -173,7 +180,7 @@ namespace Microwave.Classes.Controllers
                     ResetValues();
                     myDisplay.Clear();
                     myLight.TurnOff();
-                    // Beep 3 times
+                    myBuzzer.TurnOn(); // Beep 3 times
                     myState = States.READY;
                     break;
             }
