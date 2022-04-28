@@ -26,6 +26,7 @@ namespace Microwave.Classes.Controllers
         public UserInterface(
             IButton powerButton,
             IButton timeButton,
+            IButton timeDetractButton, //todo
             IButton startCancelButton,
             IDoor door,
             IDisplay display,
@@ -35,7 +36,8 @@ namespace Microwave.Classes.Controllers
                 int maxPower)
         {
             powerButton.Pressed += new EventHandler(OnPowerPressed);
-            timeButton.Pressed += new EventHandler(OnTimePressed);
+            timeButton.Pressed += new EventHandler(OnTimePressed); //OnTimePressed() er knyttet til Pressed eventhandleren
+            timeDetractButton.Pressed += new EventHandler(OnTimeDetractPressed); //Todo
             startCancelButton.Pressed += new EventHandler(OnStartCancelPressed);
 
             door.Closed += new EventHandler(OnDoorClosed);
@@ -81,6 +83,28 @@ namespace Microwave.Classes.Controllers
                     time += 1;
                     myDisplay.ShowTime(time, 0);
                     break;
+                case States.COOKING:
+                    myCooker.IncreaseTime();
+                    break;
+            }
+        }
+
+        //Soruba
+        public void OnTimeDetractPressed(object sender, EventArgs e)
+        {
+            switch (myState)
+            {
+                //case States.SETPOWER:
+                //    myDisplay.ShowTime(time, 0);
+                //    myState = States.SETTIME;
+                //    break;
+                //case States.SETTIME:
+                //    time -= 1;
+                //    myDisplay.ShowTime(time, 0);
+                //    break;
+                case States.COOKING:
+                    myCooker.DecreaseTime();
+                    break;
             }
         }
 
@@ -99,7 +123,7 @@ namespace Microwave.Classes.Controllers
                     myState = States.COOKING;
                     break;
                 case States.COOKING:
-                    ResetValues();
+                    ResetValues();        
                     myCooker.Stop();
                     myLight.TurnOff();
                     myDisplay.Clear();
@@ -159,6 +183,22 @@ namespace Microwave.Classes.Controllers
                     myBuzzer.TurnOn(); // Beep 3 times
                     myState = States.READY;
                     break;
+            }
+        }
+
+        public void TimeIsChangedToZero()
+        {
+            switch (myState)
+            {
+                case States.COOKING:
+                    myDisplay.ShowTime(0,0); 
+                    ResetValues();
+                    myCooker.Stop();
+                    myLight.TurnOff();
+                    myDisplay.Clear();
+                    myState = States.READY; 
+                    break;
+
             }
         }
     }

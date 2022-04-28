@@ -10,10 +10,14 @@ namespace Microwave.Classes.Interfaces
     public interface ITimer
     {
         int TimeRemaining { get; }
+        int ChangeTime { get; set; }
         event EventHandler Expired;
         event EventHandler TimerTick;
 
         void Start(int time);
+        
         void Stop();
+        void IncreaseRemainingTime();
+        void DecreaseRemainingTime();
     }
 }
