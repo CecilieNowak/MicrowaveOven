@@ -14,7 +14,7 @@ namespace Microwave.Test.Unit
 
         private IButton powerButton;
         private IButton timeButton;
-        private IButton timeDetractButton; //todo
+        private IButton timeDetractButton; 
         private IButton startCancelButton;
 
         private IDoor door;
@@ -32,7 +32,7 @@ namespace Microwave.Test.Unit
         {
             powerButton = Substitute.For<IButton>();
             timeButton = Substitute.For<IButton>();
-            timeDetractButton = Substitute.For<IButton>(); //todo
+            timeDetractButton = Substitute.For<IButton>(); 
             startCancelButton = Substitute.For<IButton>();
             door = Substitute.For<IDoor>();
             light = Substitute.For<ILight>();

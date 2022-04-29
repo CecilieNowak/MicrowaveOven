@@ -26,7 +26,7 @@ namespace Microwave.Classes.Controllers
         public UserInterface(
             IButton powerButton,
             IButton timeButton,
-            IButton timeDetractButton, //todo
+            IButton timeDetractButton, 
             IButton startCancelButton,
             IDoor door,
             IDisplay display,
@@ -36,8 +36,8 @@ namespace Microwave.Classes.Controllers
                 int maxPower)
         {
             powerButton.Pressed += new EventHandler(OnPowerPressed);
-            timeButton.Pressed += new EventHandler(OnTimePressed); //OnTimePressed() er knyttet til Pressed eventhandleren
-            timeDetractButton.Pressed += new EventHandler(OnTimeDetractPressed); //Todo
+            timeButton.Pressed += new EventHandler(OnTimePressed); 
+            timeDetractButton.Pressed += new EventHandler(OnTimeDetractPressed); 
             startCancelButton.Pressed += new EventHandler(OnStartCancelPressed);
 
             door.Closed += new EventHandler(OnDoorClosed);
@@ -89,19 +89,10 @@ namespace Microwave.Classes.Controllers
             }
         }
 
-        //Soruba
         public void OnTimeDetractPressed(object sender, EventArgs e)
         {
             switch (myState)
             {
-                //case States.SETPOWER:
-                //    myDisplay.ShowTime(time, 0);
-                //    myState = States.SETTIME;
-                //    break;
-                //case States.SETTIME:
-                //    time -= 1;
-                //    myDisplay.ShowTime(time, 0);
-                //    break;
                 case States.COOKING:
                     myCooker.DecreaseTime();
                     break;

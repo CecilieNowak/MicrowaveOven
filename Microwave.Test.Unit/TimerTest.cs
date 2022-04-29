@@ -149,7 +149,7 @@ namespace Microwave.Test.Unit
         }
 
         
-
+        //Tilføjet
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(3)]
@@ -176,7 +176,7 @@ namespace Microwave.Test.Unit
             Assert.That(uut.TimeRemaining, Is.EqualTo(60 - ticks * 1));
         }
 
-        //Todo
+        //Tilføjet
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(3)]

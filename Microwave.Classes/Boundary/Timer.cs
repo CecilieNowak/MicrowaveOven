@@ -61,13 +61,13 @@ namespace Microwave.Classes.Boundary
             }
         }
 
-        //øger tid med 1 minut
+   
         public void IncreaseRemainingTime()
         {
             TimeRemaining += ChangeTime;
         }
 
-        //Reducerer tid med 1 minut
+     
         public void DecreaseRemainingTime()
         {
             TimeRemaining -= ChangeTime;
