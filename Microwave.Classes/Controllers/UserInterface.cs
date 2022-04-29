@@ -26,7 +26,7 @@ namespace Microwave.Classes.Controllers
         public UserInterface(
             IButton powerButton,
             IButton timeButton,
-            IButton timeDetractButton, //todo
+            IButton timeDetractButton, 
             IButton startCancelButton,
             IDoor door,
             IDisplay display,
@@ -36,8 +36,8 @@ namespace Microwave.Classes.Controllers
                 int maxPower)
         {
             powerButton.Pressed += new EventHandler(OnPowerPressed);
-            timeButton.Pressed += new EventHandler(OnTimePressed); //OnTimePressed() er knyttet til Pressed eventhandleren
-            timeDetractButton.Pressed += new EventHandler(OnTimeDetractPressed); //Todo
+            timeButton.Pressed += new EventHandler(OnTimePressed); 
+            timeDetractButton.Pressed += new EventHandler(OnTimeDetractPressed); 
             startCancelButton.Pressed += new EventHandler(OnStartCancelPressed);
 
             door.Closed += new EventHandler(OnDoorClosed);

@@ -72,7 +72,7 @@ namespace Microwave.Classes.Controllers
             if (isCooking)
             {
                 //Den resterende tid fås fra Timer-klassen
-                int remaining = myTimer.TimeRemaining; // + myTimer.ChangeCookingTime;
+                int remaining = myTimer.TimeRemaining; 
                 myDisplay.ShowTime(remaining / 60, remaining % 60);
             }
         }
